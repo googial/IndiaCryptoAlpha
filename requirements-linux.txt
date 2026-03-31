@@ -1,0 +1,51 @@
+# IndiaCryptoAlpha - Linux Full Features
+# Python 3.11+ REQUIRED
+# Platform: Linux (x86_64, ARM64 with build tools)
+# Last Updated: March 31, 2026
+
+# ============================================================================
+# INCLUDE ALL CORE DEPENDENCIES
+# ============================================================================
+
+-r requirements.txt
+
+# ============================================================================
+# LINUX-SPECIFIC ENHANCEMENTS
+# ============================================================================
+
+# Scientific Computing (requires pre-built wheel or compilation)
+# On Linux with build tools, this works perfectly
+scipy==1.11.4
+
+# Machine Learning (requires pre-built wheel or compilation)
+# On Linux with build tools, this works perfectly
+scikit-learn==1.3.2
+
+# ============================================================================
+# OPTIONAL ADVANCED FEATURES (Uncomment if needed)
+# ============================================================================
+
+# Advanced Technical Analysis (requires compilation)
+# Only use if you have TA-Lib installed on your system
+# ta-lib==0.4.28
+
+# Deep Learning (heavy, requires GPU support optional)
+# Only uncomment if you have CUDA/GPU setup
+# tensorflow==2.14.0
+
+# ============================================================================
+# NOTES
+# ============================================================================
+
+# This file extends requirements.txt with Linux-specific packages.
+# Use this on Linux systems with build tools (gcc, gfortran, etc.)
+#
+# Installation:
+#   pip install -r requirements-linux.txt
+#
+# This includes:
+# - scipy: Scientific computing (requires Fortran compiler)
+# - scikit-learn: Machine learning (requires C compiler)
+#
+# Both have pre-built wheels on Linux, so no compilation is needed
+# unless you're on an unusual architecture.
