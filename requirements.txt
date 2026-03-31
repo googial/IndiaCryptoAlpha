@@ -1,0 +1,39 @@
+# IndiaCryptoAlpha - Python Dependencies
+# Compatible with: Windows (3.10+), Linux, Termux (3.10+)
+# Last Updated: March 31, 2026
+
+# Environment & Configuration
+python-dotenv==1.0.0
+
+# API & Network
+ccxt==4.0.96
+requests==2.31.0
+python-telegram-bot==20.7
+
+# Data Processing
+pandas==2.1.4
+numpy==1.26.3
+openpyxl==3.11.0
+
+# Technical Analysis
+ta==0.10.2
+scipy==1.11.4
+scikit-learn==1.3.2
+
+# Dashboard & Visualization
+streamlit==1.31.1
+plotly==5.18.0
+
+# Scheduling & Task Management
+APScheduler==3.10.4
+
+# Database
+SQLAlchemy==2.0.23
+
+# Timezone Support
+pytz==2023.3
+
+# Optional: Machine Learning (Termux may have issues)
+# Uncomment if needed and your system supports it
+# ta-lib==0.4.28
+# tensorflow==2.14.0

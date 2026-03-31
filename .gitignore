@@ -104,6 +104,31 @@ temp/
 *.db
 *.sqlite
 *.sqlite3
+data/trades.db
+data/trades.db-journal
+data/trades_log.xlsx
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Trading System
+logs/
+*.log
+.streamlit/
 
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
