@@ -89,7 +89,7 @@ pkg install python git
 2. **Clone project**
 ```bash
 cd ~
-git clone <repository-url> IndiaCryptoAlpha
+git clone https://github.com/googial/ IndiaCryptoAlpha.git
 cd IndiaCryptoAlpha
 ```
 
