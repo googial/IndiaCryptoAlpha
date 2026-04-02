@@ -1,125 +1,148 @@
-# IndiaCryptoAlpha - Multi-Agent Paper Trading System
+# IndiaAI Race Alpha - Autonomous AI Trading System
 
-A premium, production-ready multi-agent paper trading system for CoinDCX with Streamlit dashboard, Telegram alerts, and comprehensive risk management. Runs on both laptops and Android via Termux.
+**Transforming IndiaCryptoAlpha into a cutting-edge AI Race Trading System.**
 
-## 🎯 Features
+This repository now hosts **IndiaAI Race Alpha**, a sophisticated platform where autonomous, LLM-powered AI trading agents compete head-to-head in real-time "lane races" to maximize their virtual capital. Inspired by the concept demonstrated in the YouTube video "I forced the top AI trading bots to compete to make money", this system is designed for Indian markets, supporting both crypto (CoinDCX) and stocks (m.Stock Trading API).
 
-### Core Trading System
-- **6 Strategy Agents** (3 implemented, extensible to 6)
-  - RSI + MACD Momentum
-  - Bollinger Band + Volume Breakout
-  - EMA Crossover + Supertrend
-  
-- **Paper Trading Mode** - Safe backtesting and simulation
-- **Risk Engine** - Enforces strict risk parameters
-- **Order Execution** - Simulated market orders with slippage
+## 🎯 Core Vision (Matching the Video Exactly)
 
-### Logging & Analytics
-- **SQLite Database** - Persistent trade logging
-- **Excel Export** - Professional trade reports
-- **Financial Calculations** - Fees, GST, tax estimates
-- **Performance Metrics** - Win rate, Sharpe ratio, drawdown
+-   **12–36 Autonomous AI Trading Agents**: Agents compete in a real-time "lane race."
+-   **Equal Virtual Capital**: Each agent starts with ₹1,00,000 INR (configurable).
+-   **Configurable Race Duration**: Default 24–48 hours, or continuous live mode.
+-   **Independent Research & Trading**: Agents research markets, backtest, develop/evolve strategies, and execute trades.
+-   **Real-time Dashboard**: Beautiful "race" visualization with lane bars, equity curve lines, live P&L, leaderboard, total trades, win rate, etc.
+-   **High Profitability**: 75%+ agents should finish profitable in most races.
+-   **Winner Gets Bragging Rights**: Option to trade a real portfolio for the next period.
+-   **Dual Market Support**: Fully supports crypto (CoinDCX) and stocks (m.Stock Trading API).
 
-### Monitoring & Alerts
-- **Telegram Integration** - Real-time alerts
-- **Loss Alerts** - >2% per trade, >5% drawdown
-- **Daily Summaries** - Performance reports
-- **System Monitoring** - Error detection and alerts
+## ✨ Key Features
 
-### Dashboard
-- **Streamlit UI** - Beautiful, interactive interface
-- **Real-time Charts** - P&L, performance, agent comparison
-- **Agent Leaderboard** - Strategy performance ranking
-- **Risk Metrics** - Drawdown, exposure, daily loss tracking
+### Autonomous LLM-Powered AI Agents
 
-### Researcher Agent
-- **Backtesting Engine** - Historical strategy analysis
-- **Market Regime Detection** - Bullish/bearish/sideways
-- **Strategy Comparison** - Compare multiple strategies
-- **Parameter Optimization** - Grid search optimization
+Each agent is now an LLM-driven autonomous entity (configurable via `.env` for Grok/xAI, OpenAI, or Claude) comprising:
+
+-   **Researcher Sub-agent**: Pulls live + historical data, analyzes market regimes, and backtests ideas.
+-   **Strategist Sub-agent**: Uses LLM to invent, evolve, or combine strategies (technical indicators, mean-reversion, breakout, pivot points, machine-learning signals, or creative ideas).
+-   **Executor Sub-agent**: Places paper (or live) trades via CoinDCX (CCXT) and m.Stock Trading API (using the official Python SDK `mStock-TradingApi-A`).
+
+Agents can trade crypto only, stocks only, or both (configurable per race or per agent). They are designed to "evolve," with the LLM reviewing performance and tweaking parameters, switching strategies, or generating new Python strategy code snippets dynamically.
+
+### New Race Orchestrator (`race/orchestrator.py`)
+
+-   Spawns `N` AI agents (configurable in `.env`).
+-   Each agent runs in its own isolated "lane" with its own virtual portfolio.
+-   Manages race timer, start/stop, pause, and reset functionalities.
+-   Takes periodic snapshots of all agents’ equity for the race dashboard.
+
+### Enhanced Streamlit Dashboard (`dashboard/race_app.py`)
+
+Designed to look and feel exactly like the video’s "lane race" dashboard:
+
+-   **Top Bar**: Race timer, total agents, total trades made.
+-   **Main View**: Horizontal or vertical "lanes" with agent name + colored progress bar showing current profit %.
+-   **Live Equity Curve Chart**: Multi-line chart for all agents.
+-   **Leaderboard Table**: Rank, agent name, P&L, win rate, trades, strategy summary.
+-   **Agent Detail Panels**: Click an agent to see its current strategy, last trades, and research notes.
+-   **Real-time Updates**: Every 5–10 seconds.
+-   **Visuals**: Dark mode, beautiful charts (Plotly or Streamlit native).
+-   **Export**: Race results to Excel/PDF.
+
+### Market Data & Execution
+
+-   **CoinDCX**: Existing CCXT integration maintained.
+-   **m.Stock**: Full integration using the official Python SDK, supporting order placement, portfolio, and real-time market data via REST + WebSocket.
+-   **Paper-trading Mode First**: Default for safety; an `.env` flag enables live trading on either/both brokers.
+-   **Risk Engine**: Applied per agent (position sizing, daily loss limit, stop-loss, etc.).
+
+### Additional Features
+
+-   **Telegram Alerts**: Race start, leader changes, big wins/losses, final results.
+-   **Full Logging**: Per agent + master race log.
+-   **Configurable**: Via `.env` (number of agents, race duration, starting capital, LLM provider + API key, brokers to enable, markets, etc.).
+-   **Safety**: All trades are paper by default; clear warnings before enabling live trading.
+-   **Evolutionary Pressure**: After every race, top 3 agents can "breed" strategies into the next race (optional advanced mode).
 
 ## 📋 Requirements
 
-### Laptop (Full System)
-- Python 3.8+
-- 2GB RAM minimum
-- Internet connection
-- CoinDCX API keys
-- Telegram bot token
+### Laptop (WSL Kali/Ubuntu)
+
+-   Python 3.11+
+-   4GB RAM minimum (8GB+ recommended for multiple LLM agents)
+-   Internet connection
+-   CoinDCX API keys (optional, for live crypto trading)
+-   m.Stock API credentials (optional, for live stock trading)
+-   Telegram bot token (optional, for alerts)
+-   LLM API key (OpenAI, Anthropic, Google, or xAI)
 
 ### Termux (Android)
-- Termux app installed
-- Python 3.8+
-- 500MB free storage
-- Same API credentials
+
+-   Termux app installed
+-   Python 3.11+
+-   1GB free storage
+-   Same API credentials as above
 
 ## 🚀 Installation
 
-### Laptop Setup
+1.  **Clone the repository**
 
-1. **Clone or download the project**
-```
-git clone https://github.com/googial/IndiaCryptoAlpha
-cd IndiaCryptoAlpha
-```
+    ```bash
+    git clone https://github.com/googial/IndiaCryptoAlpha
+    cd IndiaCryptoAlpha
+    ```
 
-2. **Run setup script**
-```bash
-chmod +x setup.sh
-./setup.sh
-```
+2.  **Run setup script**
 
-3. **Activate virtual environment**
-```bash
-source venv/bin/activate
-```
+    ```bash
+    chmod +x setup.sh
+    ./setup.sh
+    ```
 
-4. **Verify installation**
-```bash
-python -c "import ccxt, pandas, streamlit; print('✓ All dependencies installed')"
-```
+3.  **Activate virtual environment**
 
-### Termux Setup
+    ```bash
+    source venv/bin/activate
+    ```
 
-1. **Install Termux packages**
-```bash
-pkg update && pkg upgrade
-pkg install python git
-```
+4.  **Verify installation**
 
-2. **Clone project**
-```bash
-cd ~
-git clone https://github.com/googial/IndiaCryptoAlpha
-cd IndiaCryptoAlpha
-```
-
-3. **Run setup**
-```bash
-bash setup.sh
-```
-
-4. **Activate environment**
-```bash
-source venv/bin/activate
-```
+    ```bash
+    python -c "import ccxt, pandas, streamlit; print(\'✓ All core dependencies installed\')"
+    ```
 
 ## ⚙️ Configuration
 
-### Environment Variables (.env)
-
-The `.env` file contains all configuration:
+Create a `.env` file in the project root and populate it with your API keys and desired race parameters. Refer to `QUICKSTART_RACE.md` for a detailed example.
 
 ```env
-# CoinDCX API
-COINDCX_API_KEY=your_api_key
-COINDCX_API_SECRET=your_api_secret
+# LLM Configuration (Choose one and provide API key)
+LLM_PROVIDER=openai      # Options: openai, anthropic, google, xai
+OPENAI_API_KEY=sk-your_openai_api_key
+ANTHROPIC_API_KEY=
+GOOGLE_API_KEY=
+XAI_API_KEY=
+
+# m.Stock Configuration (if enabling live stock trading)
+MSTOCK_USER_ID=
+MSTOCK_PASSWORD=
+MSTOCK_PIN=
+MSTOCK_API_KEY=
+MSTOCK_API_SECRET=
+
+# CoinDCX API Configuration (for crypto trading)
+COINDCX_API_KEY=your_coindcx_api_key
+COINDCX_API_SECRET=your_coindcx_api_secret
 
 # Telegram
 TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
 
-# Trading
+# Race Configuration
+RACE_DURATION_HOURS=24
+NUM_RACE_AGENTS=12
+RACE_UPDATE_INTERVAL_SEC=10
+EVOLUTION_INTERVAL_MIN=60
+
+# Other Trading Settings
 INITIAL_PORTFOLIO=100000
 PAPER_TRADING_MODE=true
 RISK_PER_TRADE=0.02
@@ -128,56 +151,25 @@ STOP_LOSS_PERCENT=0.03
 DAILY_MAX_LOSS_PERCENT=0.05
 ```
 
-### API Keys Setup
-
-1. **CoinDCX API Keys**
-   - Visit https://coindcx.com/api
-   - Create API key with market data access
-   - Copy key and secret to `.env`
-
-2. **Telegram Bot**
-   - Chat with @BotFather on Telegram
-   - Create new bot: `/newbot`
-   - Copy bot token to `.env`
-   - Get your chat ID: Send message to bot, visit `https://api.telegram.org/bot<TOKEN>/getUpdates`
-
 ## 🎮 Usage
 
-### Start Trading System
+### Start an AI Race
+
+Refer to `QUICKSTART_RACE.md` for detailed instructions on launching a demo race and the real-time dashboard.
 
 ```bash
-# Activate environment
-source venv/bin/activate
-
-# Start main system
-python main.py
+# In project directory, with venv activated
+python generate_demo_race.py
 ```
 
-The system will:
-- Initialize all agents
-- Start scheduled tasks
-- Begin monitoring and trading
-- Send alerts to Telegram
-
-### Start Dashboard
-
-In a new terminal:
+### Start Race Dashboard (in a new terminal)
 
 ```bash
-source venv/bin/activate
-streamlit run dashboard/app.py
+# In project directory, with venv activated
+streamlit run dashboard/race_app.py
 ```
 
-Access dashboard at: `http://localhost:8501`
-
-### Dashboard Pages
-
-1. **📊 Overview** - Key metrics and trade distribution
-2. **📈 Live Trades** - Open positions and recent trades
-3. **🏆 Agent Leaderboard** - Strategy performance ranking
-4. **📉 P&L Charts** - Cumulative P&L and pair analysis
-5. **🔬 Researcher Reports** - Market analysis and recommendations
-6. **⚠️ Risk Dashboard** - Risk metrics and alerts
+Access the dashboard at `http://localhost:8501`.
 
 ## 📊 Project Structure
 
@@ -188,13 +180,15 @@ IndiaCryptoAlpha/
 ├── core/                   # Core trading system
 │   ├── market_data.py     # CoinDCX API integration
 │   ├── risk_engine.py     # Risk management
-│   ├── order_execution.py # Order simulation
+│   ├── order_execution.py # Order simulation & m.Stock integration
+│   ├── mstock_client.py   # m.Stock API client
 │   └── __init__.py
 ├── agents/                 # Strategy agents
 │   ├── base_agent.py      # Base class
-│   ├── rsi_macd_agent.py  # RSI+MACD strategy
-│   ├── bollinger_volume_agent.py  # Bollinger Band strategy
-│   ├── ema_supertrend_agent.py    # EMA Crossover strategy
+│   ├── llm_agent.py       # LLM-powered autonomous agent
+│   ├── rsi_macd_agent.py  # (Legacy) RSI+MACD strategy
+│   ├── bollinger_volume_agent.py  # (Legacy) Bollinger Band strategy
+│   ├── ema_supertrend_agent.py    # (Legacy) EMA Crossover strategy
 │   └── __init__.py
 ├── logger/                 # Logging and accounting
 │   ├── database.py        # SQLite logging
@@ -205,157 +199,99 @@ IndiaCryptoAlpha/
 │   ├── telegram_monitor.py # Telegram integration
 │   ├── monitor_agent.py   # System monitoring
 │   └── __init__.py
+├── race/                   # Race Orchestration
+│   ├── orchestrator.py    # Main race logic
+│   └── __init__.py
 ├── researcher/             # Research and backtesting
 │   ├── backtest_engine.py # Backtesting
 │   ├── researcher_agent.py # Market analysis
 │   └── __init__.py
-├── dashboard/              # Streamlit dashboard
-│   ├── app.py            # Dashboard UI
+├── dashboard/              # Streamlit dashboards
+│   ├── app.py            # (Legacy) Overview dashboard
+│   ├── race_app.py       # New Race Visualization Dashboard
 │   └── __init__.py
 ├── data/                   # Data storage
-│   ├── trades.db         # SQLite database
-│   └── trades_log.xlsx   # Excel log
 ├── logs/                   # Log files
-│   └── trading_system.log # System logs
-├── main.py                 # Main orchestrator
+├── main.py                 # Main system entry point (now runs race)
+├── generate_demo_race.py   # Script to run a short demo race
 ├── requirements.txt        # Python dependencies
 ├── setup.sh               # Setup script
 ├── .env                   # Configuration (create this)
-└── README.md              # This file
+├── README.md              # This file
+└── QUICKSTART_RACE.md     # Quickstart guide for race mode
 ```
 
 ## 🔄 System Architecture
 
-### Agent Workflow
-
 ```
-Market Data → Strategy Agents → Risk Engine → Order Execution
-                                                      ↓
-                                            Accountant Agent
-                                                      ↓
-                                          SQLite + Excel Logging
-                                                      ↓
-                                            Monitor Agent
-                                                      ↓
-                                          Telegram Alerts
-```
++-----------------------+
+|  Race Orchestrator    |
+| (race/orchestrator.py)|
++-----------+-----------+
+            |
+            v
++-----------------------+
+|  LLM Trading Agents   |
+| (agents/llm_agent.py) |
++-----------+-----------+
+    ^   ^   |
+    |   |   v
+    |   |  +-----------------------+
+    |   +--|  Researcher Sub-agent |
+    |      +-----------------------+
+    |                  |
+    |                  v
+    |      +-----------------------+
+    +------|  Strategist Sub-agent |
+           +-----------------------+
+                           |
+                           v
+               +-----------------------+
+               |  Executor Sub-agent   |
+               | (CoinDCX, m.Stock)    |
+               +-----------+-----------+
+                           |
+                           v
+               +-----------------------+
+               |  Risk Engine          |
+               |  Order Executor       |
+               |  Market Data Manager  |
+               +-----------+-----------+
+                           |
+                           v
+               +-----------------------+
+               |  Accountant Agent     |
+               |  Monitor Agent        |
+               +-----------+-----------+
+                           |
+                           v
+               +-----------------------+
+               |  SQLite, Excel,       |
+               |  Telegram Alerts      |
+               +-----------------------+
 
-### Scheduled Tasks
-
-- **Hourly**: Strategy analysis and trade execution
-- **Every 6 hours**: Researcher analysis and backtesting
-- **Every 2-3 hours**: System monitoring and health checks
-- **Daily (8 PM)**: Summary report and agent performance
-
-## 📈 Trading Strategies
-
-### 1. RSI + MACD Momentum
-- **Entry**: RSI oversold (<30) + MACD bullish crossover
-- **Exit**: RSI overbought (>70) + MACD bearish crossover
-- **Best for**: Ranging markets with clear momentum
-
-### 2. Bollinger Band + Volume
-- **Entry**: Price breaks upper band + volume spike
-- **Exit**: Price breaks lower band + volume spike
-- **Best for**: Breakout trading
-
-### 3. EMA Crossover + Supertrend
-- **Entry**: EMA fast crosses above slow + Supertrend uptrend
-- **Exit**: EMA fast crosses below slow + Supertrend downtrend
-- **Best for**: Trend-following strategies
-
-## ⚠️ Risk Management
-
-### Risk Parameters
-- **Max Risk Per Trade**: 2% of portfolio
-- **Max Portfolio Exposure**: 10% per pair
-- **Stop Loss**: 3-5% below entry
-- **Daily Max Loss**: 5% → pause all trading
-
-### Monitoring
-- Real-time loss alerts (>2% per trade)
-- Drawdown alerts (>5%)
-- Daily loss limit enforcement
-- System error notifications
-
-## 📊 Financial Calculations
-
-### Fees & Taxes
-- **CoinDCX Fees**: 0.1% maker + 0.2% taker
-- **GST**: 18% on fees
-- **Income Tax**: 30% on profits (estimated)
-
-### P&L Calculation
-```
-Gross P&L = (Exit Price - Entry Price) × Quantity
-Fees = Entry Fee + Exit Fee
-GST = Fees × 18%
-Tax = max(0, Gross P&L × 30%)
-Net P&L = Gross P&L - Fees - GST - Tax
++-----------------------------------+
+|  Streamlit Race Dashboard         |
+| (dashboard/race_app.py)           |
+|  (Real-time visualization)        |
++-----------------------------------+
 ```
 
 ## 🔧 Troubleshooting
 
-### Issue: "CoinDCX connection failed"
-- Check API keys in `.env`
-- Verify internet connection
-- Check CoinDCX API status
+### Issue: "ModuleNotFoundError: No module named 'mstock_trading_api'"
+-   Ensure you have installed the `mStock-TradingApi-A` package. If not, run `pip install mStock-TradingApi-A` after activating your virtual environment.
+-   Verify that `mStock-TradingApi-A` is compatible with your Python version and system.
 
-### Issue: "Telegram bot not responding"
-- Verify bot token is correct
-- Check chat ID format
-- Ensure bot has permission to send messages
+### Issue: LLM API Key not working
+-   Check your `.env` file for the correct `LLM_PROVIDER` and corresponding API key (e.g., `OPENAI_API_KEY`).
+-   Ensure your API key has the necessary permissions and is not expired.
+-   Verify internet connectivity to the LLM provider's API endpoint.
 
-### Issue: "Dashboard not loading"
-- Check Streamlit is running: `streamlit run dashboard/app.py`
-- Verify database exists: `ls data/trades.db`
-- Check logs: `tail -f logs/trading_system.log`
-
-### Issue: "Insufficient data for backtest"
-- Need at least 50 candles of historical data
-- Try different trading pair
-- Check CoinDCX API rate limits
-
-## 📝 Logging
-
-### Log Files
-- `logs/trading_system.log` - Main system log
-- `data/trades.db` - SQLite database
-- `data/trades_log.xlsx` - Excel export
-
-### Log Levels
-- `INFO` - Normal operations
-- `WARNING` - Alerts and warnings
-- `ERROR` - System errors
-- `DEBUG` - Detailed debugging info
-
-## 🚀 Extending the System
-
-### Adding New Strategy
-
-1. Create new agent in `agents/` directory
-2. Inherit from `BaseStrategyAgent`
-3. Implement `generate_signal()` method
-4. Add to orchestrator in `main.py`
-
-Example:
-```python
-from agents import BaseStrategyAgent
-
-class MyStrategy(BaseStrategyAgent):
-    def __init__(self, pairs, risk_engine, order_executor, market_data):
-        super().__init__("My Strategy", pairs, risk_engine, order_executor, market_data)
-    
-    def generate_signal(self, pair, data):
-        # Your strategy logic here
-        return signal
-```
-
-### Adding New Alert Type
-
-1. Add method to `TelegramMonitor` class
-2. Call from `MonitorAgent`
-3. Configure in scheduler
+### General Issues
+-   Check logs: `tail -f logs/trading_system.log` or `tail -f logs/demo_race.log`
+-   Review configuration: Check your `.env` file for any typos or missing values.
+-   Ensure your Python virtual environment is activated: `source venv/bin/activate`
 
 ## 📄 License
 
@@ -363,35 +299,12 @@ This project is provided as-is for educational and personal use.
 
 ## 🤝 Support
 
-For issues or questions:
-1. Check logs: `tail -f logs/trading_system.log`
-2. Review configuration: Check `.env` file
-3. Test API connection: `python -c "from core import MarketDataManager; m = MarketDataManager()"`
-
-## ⚡ Performance Tips
-
-### For Laptop
-- Use SSD for database
-- Increase worker threads
-- Enable caching for market data
-
-### For Termux
-- Use lighter strategies (fewer indicators)
-- Reduce analysis frequency
-- Limit number of pairs to 3-5
-- Use SQLite only (no Excel)
-
-## 📚 References
-
-- [CoinDCX API Documentation](https://docs.coindcx.com/)
-- [CCXT Library](https://github.com/ccxt/ccxt)
-- [Streamlit Documentation](https://docs.streamlit.io/)
-- [Telegram Bot API](https://core.telegram.org/bots/api)
+For issues or questions, please refer to the troubleshooting section or open an issue on GitHub.
 
 ---
 
 **Built with ❤️ for Indian traders**
 
-**Status**: Paper Trading Mode (Safe for testing)
+**Status**: AI Race Alpha (Paper Trading Mode by default)
 
-**Last Updated**: 2026-03-31
+**Last Updated**: 2026-04-02

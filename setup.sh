@@ -280,8 +280,8 @@ fi
 
 log_section "STEP 7: Creating Data Directories"
 
-log_info "Creating data and logs directories..."
-mkdir -p data logs || exit_error "Failed to create directories"
+log_info "Creating data, logs, and race directories..."
+mkdir -p data logs race || exit_error "Failed to create directories"
 
 log_success "Directories created"
 

@@ -4,7 +4,11 @@ import logging
 from typing import Dict, Optional, List
 from datetime import datetime
 from uuid import uuid4
-from config import PAPER_TRADING_MODE
+from config import (
+    PAPER_TRADING_MODE, MSTOCK_USER_ID, MSTOCK_PASSWORD, MSTOCK_PIN,
+    MSTOCK_API_KEY, MSTOCK_API_SECRET
+)
+from .mstock_client import MStockClient
 
 logger = logging.getLogger(__name__)
 
@@ -18,6 +22,15 @@ class OrderExecutor:
         self.filled_orders = []
         self.pending_orders = []
         self.order_counter = 0
+        
+        # Initialize m.Stock client if credentials provided
+        self.mstock = None
+        if MSTOCK_USER_ID and MSTOCK_API_KEY:
+            self.mstock = MStockClient(
+                MSTOCK_USER_ID, MSTOCK_PASSWORD, MSTOCK_PIN,
+                MSTOCK_API_KEY, MSTOCK_API_SECRET
+            )
+            self.mstock.connect()
 
     def create_order(self, pair: str, side: str, quantity: float, 
                     price: float, order_type: str = 'limit') -> Dict:
@@ -192,6 +205,22 @@ class OrderExecutor:
         Returns:
             Execution details
         """
+        # If not in paper trading mode and it's a stock (not a crypto pair with hyphen)
+        if not PAPER_TRADING_MODE and '-' not in pair and self.mstock:
+            logger.info(f"🚀 Executing LIVE trade on m.Stock for {pair}")
+            mstock_order = self.mstock.place_order(pair, side, int(quantity))
+            if mstock_order and mstock_order.get('status') == 'COMPLETE':
+                # Create a record in our system for the live trade
+                order = self.create_order(pair, side, quantity, current_price, order_type='market')
+                execution = self.execute_order(order['order_id'], current_price) # Use current price for record
+                execution['live'] = True
+                execution['broker'] = 'mstock'
+                return execution
+            else:
+                logger.error(f"✗ Live trade on m.Stock failed for {pair}")
+                return {}
+
+        # Default to paper trading simulation
         # Apply slippage
         if side == 'BUY':
             execution_price = current_price * (1 + slippage)
@@ -201,6 +230,8 @@ class OrderExecutor:
         # Create and execute order
         order = self.create_order(pair, side, quantity, current_price, order_type='market')
         execution = self.execute_order(order['order_id'], execution_price)
+        execution['live'] = False
+        execution['broker'] = 'paper'
 
         return execution
 

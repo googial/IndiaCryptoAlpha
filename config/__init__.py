@@ -44,6 +44,26 @@ EXCEL_LOG_PATH = DATA_DIR / os.getenv("EXCEL_LOG_PATH", "trades_log.xlsx").split
 BACKTEST_DAYS = int(os.getenv("BACKTEST_DAYS", "30"))
 RESEARCHER_INTERVAL_HOURS = int(os.getenv("RESEARCHER_INTERVAL_HOURS", "6"))
 
+# Race Configuration
+RACE_DURATION_HOURS = int(os.getenv("RACE_DURATION_HOURS", "24"))
+NUM_RACE_AGENTS = int(os.getenv("NUM_RACE_AGENTS", "12"))
+RACE_UPDATE_INTERVAL_SEC = int(os.getenv("RACE_UPDATE_INTERVAL_SEC", "10"))
+EVOLUTION_INTERVAL_MIN = int(os.getenv("EVOLUTION_INTERVAL_MIN", "60"))
+
+# LLM Configuration
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai")  # openai, anthropic, google, xai
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+XAI_API_KEY = os.getenv("XAI_API_KEY", "")
+
+# m.Stock Configuration
+MSTOCK_USER_ID = os.getenv("MSTOCK_USER_ID", "")
+MSTOCK_PASSWORD = os.getenv("MSTOCK_PASSWORD", "")
+MSTOCK_PIN = os.getenv("MSTOCK_PIN", "")
+MSTOCK_API_KEY = os.getenv("MSTOCK_API_KEY", "")
+MSTOCK_API_SECRET = os.getenv("MSTOCK_API_SECRET", "")
+
 # Monitor Configuration
 MONITOR_INTERVAL_HOURS = int(os.getenv("MONITOR_INTERVAL_HOURS", "2"))
 
