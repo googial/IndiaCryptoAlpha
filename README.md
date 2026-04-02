@@ -176,9 +176,42 @@ streamlit run dashboard/race_app.py
 
 Access the dashboard at `http://localhost:8501`.
 
-## 📊 Project Structure
+## 🔮 Professional Dashboard
 
+The dashboard has been upgraded to a **professional-grade algo trading platform** with full system control:
+
+### Features
+
+- **Agent Control Center**: Start/stop/restart individual agents to keep only top performers running. Each agent is displayed in a card with real-time P&L, win rate, and strategy info.
+- **API Key Management**: Securely enter and store all your exchange and LLM API keys directly in the dashboard (saved encrypted to `data/api_keys.json`).
+- **Live System Logs**: View filtered logs with search and auto-refresh directly in the browser.
+- **Configuration Editor**: Modify all `.env` variables (portfolios, risk limits, agent count, intervals) with live reload on restart.
+- **Race Status Panel**: Real-time overview of race status, active agent count, and quick controls.
+- **Clean ANSI-Free Output**: Dashboard no longer shows raw escape codes; all text displays cleanly.
+
+### Access
+
+```bash
+# With virtual environment active
+streamlit run dashboard/app.py
 ```
+
+Then open **http://localhost:8501** in your browser.
+
+### Backend API Server
+
+A Flask-based REST API (`api_server.py`) runs alongside the dashboard, enabling full remote control:
+
+- `GET /api/health` — check server health
+- `POST /api/race/start`, `POST /api/race/stop` — global race control
+- `GET /api/race/status`, `GET /api/race/leaderboard` — real-time data
+- `POST /api/agents/<id>/stop`, `POST /api/agents/<id>/restart` — per-agent control
+- `GET/POST /api/config` — configuration fetch and update
+- `GET/POST /api/apikeys/<name>` — secure key management
+- `GET /api/logs` — fetch recent log entries
+- `GET /api/trades`, `GET /api/analytics/performance` — data export
+
+To enable the API server (currently allows local control), set `ALLOW_API_CONTROL=true` in your `.env` file. The dashboard uses this API for all controls.
 IndiaCryptoAlpha/
 ├── config/                 # Configuration module
 │   └── __init__.py        # Environment variables
@@ -314,18 +347,12 @@ For issues or questions, please refer to the troubleshooting section or open an 
 
 **Last Updated**: 2026-04-02
 
-## 🐛 Python 3.13 Compatibility Fix
+## 🐛 Python 3.13 Compatibility
 
-If you're using **Python 3.13**, the `setup.sh` script will automatically install compatible versions of `numpy` (≥2.1.0) and `pandas` (≥2.2.3) which have pre-built wheels for Python 3.13.
+If you're using **Python 3.13**, `setup.sh` automatically installs compatible versions:
+- `numpy>=2.1.0`
+- `pandas>=2.2.3`
 
-Previous versions (`numpy==1.26.4` and `pandas==2.1.4`) failed to build from source on Python 3.13 due to C API changes (`_PyLong_AsByteArray` signature change). This has been resolved by updating to versions with official Python 3.13 wheel support.
+Older versions (`numpy==1.26.4`, `pandas==2.1.4`) fail on Python 3.13 due to Python C API changes (`_PyLong_AsByteArray`). The updated requirements have pre-built Python 3.13 wheels, so no local compilation is needed.
 
-If you encounter any build errors, ensure you're on the latest commit: `git pull origin main`.
-
-## 🐛 Python 3.13 Compatibility Fix
-
-If you're using **Python 3.13**, the `setup.sh` script will automatically install compatible versions of `numpy` (≥2.1.0) and `pandas` (≥2.2.3) which have pre-built wheels for Python 3.13.
-
-Previous versions (`numpy==1.26.4` and `pandas==2.1.4`) failed to build from source on Python 3.13 due to C API changes (`_PyLong_AsByteArray` signature change). This has been resolved by updating to versions with official Python 3.13 wheel support.
-
-If you encounter any build errors, ensure you're on the latest commit: `git pull origin main`.
+If you encounter build errors, ensure you're on the latest commit: `git pull origin main`.

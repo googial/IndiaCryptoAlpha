@@ -1,0 +1,15 @@
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -23,11 +23,11 @@ mStock-TradingApi-A
+ # ============================================================================
+ 
+ # NumPy - Core data processing (Python 3.13 wheels available from 2.1.0+)
+-numpy==1.26.4
++numpy>=2.1.0,<3.0.0
+ 
+ # Pandas - Data manipulation (Python 3.13 wheels available from 2.2.3+)
+-pandas==2.1.4
++pandas>=2.2.3,<3.0.0
+ 
+ # Excel Support
+ openpyxl==3.1.5

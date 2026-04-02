@@ -38,7 +38,9 @@ DAILY_MAX_LOSS_PERCENT = float(os.getenv("DAILY_MAX_LOSS_PERCENT", "0.05"))
 # Logging Configuration
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 DATABASE_PATH = DATA_DIR / os.getenv("DATABASE_PATH", "trades.db").split("/")[-1]
-EXCEL_LOG_PATH = DATA_DIR / os.getenv("EXCEL_LOG_PATH", "trades_log.xlsx").split("/")[-1]
+EXCEL_LOG_PATH = (
+    DATA_DIR / os.getenv("EXCEL_LOG_PATH", "trades_log.xlsx").split("/")[-1]
+)
 
 # Researcher Configuration
 BACKTEST_DAYS = int(os.getenv("BACKTEST_DAYS", "30"))
