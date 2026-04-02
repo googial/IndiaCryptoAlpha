@@ -4,6 +4,7 @@ import logging
 import sys
 import time
 import os
+import threading
 from pathlib import Path
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -26,6 +27,20 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def _run_api_server():
+    """Run Flask API server for dashboard integration."""
+    try:
+        import importlib
+
+        api_server = importlib.import_module("api_server")
+        app = api_server.create_app()
+        port = int(os.getenv("API_PORT", "5000"))
+        logger.info(f"API server started on port {port}")
+        app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
+    except Exception as e:
+        logger.error(f"API server failed to start: {e}", exc_info=True)
+
+
 def main():
     """Main entry point for the IndiaAI Race Alpha system."""
     logger.info("=" * 80)
@@ -34,6 +49,11 @@ def main():
     logger.info(
         f"Configured for {NUM_RACE_AGENTS} agents over {RACE_DURATION_HOURS} hours."
     )
+
+    # Start the backend API server in a daemon thread
+    api_thread = threading.Thread(target=_run_api_server, daemon=True)
+    api_thread.start()
+    logger.info("API server thread started (background)")
 
     orchestrator = None
     try:

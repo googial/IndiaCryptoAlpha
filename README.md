@@ -158,49 +158,51 @@ DAILY_MAX_LOSS_PERCENT=0.05
 
 ## 🎮 Usage
 
-### Start an AI Race
+### Start the AI Race System
 
-Refer to `QUICKSTART_RACE.md` for detailed instructions on launching a demo race and the real-time dashboard.
-
-```bash
-# In project directory, with venv activated
-python generate_demo_race.py
-```
-
-### Start Race Dashboard (in a new terminal)
+The trading system and API server now start together with a **single command**:
 
 ```bash
 # In project directory, with venv activated
-streamlit run dashboard/race_app.py
+python main.py
 ```
 
-Access the dashboard at `http://localhost:8501`.
+When `main.py` runs, it automatically:
+1. Starts the **Flask API Control Server** (port 5000, background thread)
+2. Spawns and manages all AI trading agents
+3. Streams logs to `logs/trading_system.log`
 
-## 🔮 Professional Dashboard
+Press `Ctrl+C` to stop.
 
-The dashboard has been upgraded to a **professional-grade algo trading platform** with full system control:
+### Access the Professional Dashboard
 
-### Features
-
-- **Agent Control Center**: Start/stop/restart individual agents to keep only top performers running. Each agent is displayed in a card with real-time P&L, win rate, and strategy info.
-- **API Key Management**: Securely enter and store all your exchange and LLM API keys directly in the dashboard (saved encrypted to `data/api_keys.json`).
-- **Live System Logs**: View filtered logs with search and auto-refresh directly in the browser.
-- **Configuration Editor**: Modify all `.env` variables (portfolios, risk limits, agent count, intervals) with live reload on restart.
-- **Race Status Panel**: Real-time overview of race status, active agent count, and quick controls.
-- **Clean ANSI-Free Output**: Dashboard no longer shows raw escape codes; all text displays cleanly.
-
-### Access
+Launch the dashboard in a separate terminal:
 
 ```bash
-# With virtual environment active
 streamlit run dashboard/app.py
 ```
 
-Then open **http://localhost:8501** in your browser.
+Open **http://localhost:8501** in your browser.
+
+#### Dashboard Features
+
+| Section | What You Can Do |
+|---------|----------------|
+| **📊 Overview** | Portfolio P&L, win rate, Sharpe/Sortino ratios, trade distribution, cumulative P&L chart |
+| **⚡ Agent Control** | Start/stop the race, view agent cards, restart individual agents, stop underperformers |
+| **📈 Live Trades** | Monitor open positions, closed trades, unrealized P&L |
+| **🔑 API Keys** | Enter and manage CoinDCX, m.Stock, OpenAI, Anthropic, Google, Telegram keys directly from UI |
+| **⚠️ Risk Dashboard** | Real-time risk alerts (drawdown, win rate, profit factor), risk/reward ratio |
+| **📋 System Logs** | Live log viewer with search, log level filter, auto-refresh every 5s |
+| **⚙️ Configuration** | Edit all `.env` parameters (portfolio, risk, agent count, intervals) via the UI |
+
+## 🔮 Professional Dashboard
+
+The dashboard (`dashboard/app.py`) is a **professional-grade algo trading platform** with full system control — manage agents, API keys, configuration, and logs all from one UI.
 
 ### Backend API Server
 
-A Flask-based REST API (`api_server.py`) runs alongside the dashboard, enabling full remote control:
+A Flask-based REST API (`api_server.py`) runs automatically as a background thread when you start `main.py`, enabling full remote control:
 
 - `GET /api/health` — check server health
 - `POST /api/race/start`, `POST /api/race/stop` — global race control
