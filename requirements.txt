@@ -44,7 +44,7 @@ ta==0.10.2
 # ============================================================================
 
 # Streamlit - Web Dashboard
-streamlit==1.31.1
+streamlit>=1.40.0
 
 # Interactive Charts
 plotly==5.18.0
