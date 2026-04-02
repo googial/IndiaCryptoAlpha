@@ -1,41 +1,48 @@
 # IndiaCryptoAlpha - Linux Full Features (Updated for Python 3.13)
 # Python 3.11+ REQUIRED
+# Platform: Linux (x86_64, WSL2)
 # Last Updated: April 2026
 # ============================================================================
 
-# Core dependencies from main requirements.txt
+# Core dependencies (with Python 3.13 fixes)
 -r requirements.txt
 
 # ============================================================================
-# LINUX-SPECIFIC ENHANCEMENTS (Updated for Python 3.13 compatibility)
+# LINUX-SPECIFIC ENHANCEMENTS
 # ============================================================================
 
-# Scientific Computing
-scipy>=1.14.0          # Updated from 1.11.4 (better 3.13 support)
+# Scientific Computing (good wheels on Linux for Python 3.13)
+scipy>=1.14.0
 
-# Machine Learning
-scikit-learn>=1.6.0    # Updated from 1.3.2 (official 3.13 support starts ~1.6+)
-
-# ============================================================================
-# Data Science Core (Critical Fix)
-# ============================================================================
-numpy>=2.1.0           # Must be >=2.0 for Python 3.13
-pandas>=2.2.3          # First version with proper Python 3.13 support
+# Machine Learning (supports Python 3.13)
+scikit-learn>=1.6.0
 
 # ============================================================================
-# OPTIONAL ADVANCED FEATURES (Uncomment only if needed)
+# DASHBOARD & VISUALIZATION (Streamlit + extras)
 # ============================================================================
-# ta-lib==0.4.28                  # Requires system TA-Lib installed
-# tensorflow>=2.17.0              # Heavy + GPU optional (check CUDA)
-# torch>=2.4.0                    # If you need PyTorch instead
+streamlit>=1.55.0          # Latest stable as of April 2026
+plotly>=5.24.0             # Interactive charts (commonly used with Streamlit)
+altair>=5.0.0              # Declarative visualization (optional but useful)
 
 # ============================================================================
-# NOTES
+# OPTIONAL ADVANCED FEATURES (Uncomment if you need them)
 # ============================================================================
-# This file now supports Python 3.13 properly on Kali/WSL2.
-# We loosened the pins for numpy/pandas/scipy/scikit-learn because the old
-# pinned versions do not build on Python 3.13.
+# ta-lib==0.4.28           # Requires system TA-Lib library installed via apt
+# tensorflow>=2.17.0       # Deep learning (heavy, needs GPU for best performance)
+# torch>=2.4.0 torchvision>=0.19.0  # PyTorch (CPU version by default)
+
+# ============================================================================
+# NOTES FOR LINUX USERS
+# ============================================================================
+# This file is optimized for Kali Linux / WSL2 with Python 3.13
+# Key fixes:
+#   - numpy >=2.1.0 and pandas >=2.2.3 (in requirements.txt) → fixes build error
+#   - scipy and scikit-learn use modern versions with Python 3.13 wheels
+#   - Streamlit added for the dashboard folder
 #
-# Installation command:
-# source venv/bin/activate
-# pip install -r requirements-linux.txt
+# Installation:
+#   source venv/bin/activate
+#   pip install -r requirements-linux.txt
+#
+# If you face any wheel/compilation issues, run:
+#   sudo apt update && sudo apt install -y build-essential gfortran python3-dev
