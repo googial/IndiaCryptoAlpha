@@ -47,7 +47,7 @@ ta==0.10.2
 streamlit>=1.40.0
 
 # Interactive Charts
-plotly==5.18.0
+plotly>=5.24.0
 
 # ============================================================================
 # SCHEDULING & TASK MANAGEMENT
