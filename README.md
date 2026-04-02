@@ -59,6 +59,12 @@ A premium, production-ready multi-agent paper trading system for CoinDCX with St
 
 1. **Clone or download the project**
 ```bash
+2. **Clone project**
+```bash
+cd ~
+git clone https://github.com/googial/IndiaCryptoAlpha
+cd IndiaCryptoAlpha
+```
 cd ~/IndiaCryptoAlpha
 ```
 
@@ -89,7 +95,7 @@ pkg install python git
 2. **Clone project**
 ```bash
 cd ~
-git clone https://github.com/googial/ IndiaCryptoAlpha.git
+git clone https://github.com/googial/IndiaCryptoAlpha
 cd IndiaCryptoAlpha
 ```
 
