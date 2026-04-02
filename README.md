@@ -210,20 +210,6 @@ Open **http://localhost:8501** in your browser.
 
 ![System Logs](docs/images/dashboard_logs.png)
 
-### 📸 Screenshots
-
-**Agent Control Center** — Monitor all agents' live P&L, trades, win rates, and Sharpe ratios. Restart underperformers or auto-keep top agents.
-
-![Agent Control Center](docs/images/dashboard_control.png)
-
-**API Key Management** — Securely enter exchange and LLM keys directly from the dashboard.
-
-![API Key Management](docs/images/dashboard_keys.png)
-
-**System Logs** — Real-time log viewer with keyword search and log-level filtering.
-
-![System Logs](docs/images/dashboard_logs.png)
-
 ## 🔮 Professional Dashboard
 
 The dashboard (`dashboard/app.py`) is a **professional-grade algo trading platform** with full system control — manage agents, API keys, configuration, and logs all from one UI.
