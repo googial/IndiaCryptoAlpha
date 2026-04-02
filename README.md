@@ -64,6 +64,11 @@ Designed to look and feel exactly like the video’s "lane race" dashboard:
 
 ## 📋 Requirements
 
+### Python Version Compatibility
+
+- **Python 3.11 - 3.12**: Fully supported with all pinned dependency versions.
+- **Python 3.13**: Supported with updated `numpy>=2.1.0` and `pandas>=2.2.3` (pre-built wheels available). The setup script auto-detects your Python version and installs compatible packages.
+
 ### Laptop (WSL Kali/Ubuntu)
 
 -   Python 3.11+
@@ -308,3 +313,19 @@ For issues or questions, please refer to the troubleshooting section or open an 
 **Status**: AI Race Alpha (Paper Trading Mode by default)
 
 **Last Updated**: 2026-04-02
+
+## 🐛 Python 3.13 Compatibility Fix
+
+If you're using **Python 3.13**, the `setup.sh` script will automatically install compatible versions of `numpy` (≥2.1.0) and `pandas` (≥2.2.3) which have pre-built wheels for Python 3.13.
+
+Previous versions (`numpy==1.26.4` and `pandas==2.1.4`) failed to build from source on Python 3.13 due to C API changes (`_PyLong_AsByteArray` signature change). This has been resolved by updating to versions with official Python 3.13 wheel support.
+
+If you encounter any build errors, ensure you're on the latest commit: `git pull origin main`.
+
+## 🐛 Python 3.13 Compatibility Fix
+
+If you're using **Python 3.13**, the `setup.sh` script will automatically install compatible versions of `numpy` (≥2.1.0) and `pandas` (≥2.2.3) which have pre-built wheels for Python 3.13.
+
+Previous versions (`numpy==1.26.4` and `pandas==2.1.4`) failed to build from source on Python 3.13 due to C API changes (`_PyLong_AsByteArray` signature change). This has been resolved by updating to versions with official Python 3.13 wheel support.
+
+If you encounter any build errors, ensure you're on the latest commit: `git pull origin main`.
