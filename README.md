@@ -111,7 +111,7 @@ Designed to look and feel exactly like the video’s "lane race" dashboard:
 4.  **Verify installation**
 
     ```bash
-    python -c "import ccxt, pandas, streamlit; print(\'✓ All core dependencies installed\')"
+    python -c "import pandas, requests, flask, streamlit; print('✓ All core dependencies installed')"
     ```
 
 ## ⚙️ Configuration

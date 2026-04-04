@@ -1,91 +1,18 @@
-# IndiaCryptoAlpha - Core Dependencies (Universal)
-# Python 3.11+ REQUIRED
-# Compatible with: Windows, Linux, macOS, Termux (ARM)
-# Last Updated: March 31, 2026
+# Core dependencies
+pandas>=2.0.0
+numpy>=1.26.0
+requests>=2.31.0
+python-dotenv>=1.0.0
 
-# ============================================================================
-# CORE DEPENDENCIES - Stable, Lightweight, Universal
-# ============================================================================
-
-# Environment & Configuration
-python-dotenv==1.0.0
-
-# API & Network
-ccxt==4.0.96
-requests==2.31.0
-python-telegram-bot==20.7
-openai>=1.0.0
-anthropic>=0.5.0
-google-generativeai>=0.3.0
-mStock-TradingApi-A
-
-# ============================================================================
-# DATA PROCESSING - Universal (No Heavy Compilation)
-# ============================================================================
-
-# NumPy - Core data processing (Python 3.13 wheels available from 2.1.0+)
-numpy>=2.1.0,<3.0.0
-
-# Pandas - Data manipulation (Python 3.13 wheels available from 2.2.3+)
-pandas>=2.2.3,<3.0.0
-
-# Excel Support
-openpyxl==3.1.5
-
-# ============================================================================
-# TECHNICAL ANALYSIS - Lightweight
-# ============================================================================
-
-# Technical Analysis Library (pure Python, no compilation)
-ta==0.10.2
-
-# ============================================================================
-# DASHBOARD & VISUALIZATION
-# ============================================================================
-
-# Streamlit - Web Dashboard
-streamlit>=1.40.0
-
-# Interactive Charts
-plotly>=5.24.0
-
-# ============================================================================
-# API & CONTROL SERVER
-# ============================================================================
-
-# Flask REST API for dashboard control
-flask>=2.3.0
+# Trading & API
+flask>=2.0.0
 flask-cors>=4.0.0
+apscheduler>=3.8.0
 
-# ============================================================================
-# SCHEDULING & TASK MANAGEMENT
-# ============================================================================
+# Dashboard
+streamlit>=1.28.0
+plotly>=5.18.0
 
-# APScheduler - Job Scheduling
-APScheduler==3.10.4
-
-# ============================================================================
-# DATABASE
-# ============================================================================
-
-# SQLAlchemy - ORM
-SQLAlchemy==2.0.23
-
-# ============================================================================
-# UTILITIES
-# ============================================================================
-
-# Timezone Support
-pytz==2023.3
-
-# ============================================================================
-# NOTES
-# ============================================================================
-
-# This is the CORE requirements file.
-# Use platform-specific files for additional features:
-#
-# - requirements-linux.txt: Full features (includes scipy, scikit-learn)
-# - requirements-termux.txt: Minimal (Termux-optimized)
-#
-# The setup.sh script automatically selects the right file.
+# Optional HMM regime detection
+hmmlearn>=0.2.0
+scikit-learn>=1.3.0
