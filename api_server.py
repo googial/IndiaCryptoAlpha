@@ -146,6 +146,15 @@ def create_app() -> Flask:
                 return jsonify({"error": "Race already running"}), 400
 
             try:
+                # Reload config from .env if updated via API
+                from config import load_dotenv
+
+                load_dotenv()
+                import importlib
+                import config as config_mod
+
+                importlib.reload(config_mod)
+
                 _orchestrator = RaceOrchestrator(num_agents=NUM_RACE_AGENTS)
                 _orchestrator.start_race()
                 logger.info("Race started via API")
@@ -279,7 +288,7 @@ def create_app() -> Flask:
 
                 # Reinitialize agent with fresh risk engine
                 risk_engine = RiskEngine(INITIAL_PORTFOLIO)
-                order_executor = OrderExecutor()
+                order_executor = OrderExecutor(exchange=_orchestrator.exchange)
                 new_agent = LLMTradingAgent(
                     name=_orchestrator.agents[agent_index].name,
                     pairs=SUPPORTED_PAIRS,

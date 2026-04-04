@@ -18,6 +18,14 @@ DATA_DIR.mkdir(exist_ok=True)
 LOGS_DIR = PROJECT_ROOT / "logs"
 LOGS_DIR.mkdir(exist_ok=True)
 
+# Exchange Configuration (supports multiple exchanges)
+EXCHANGE_NAME = os.getenv("EXCHANGE_NAME", "coindcx")  # "binance" or "coindcx"
+
+# Binance API Configuration
+BINANCE_API_KEY = os.getenv("BINANCE_API_KEY", "")
+BINANCE_SECRET_KEY = os.getenv("BINANCE_SECRET_KEY", "")
+BINANCE_BASE_URL = "https://api.binance.com"
+
 # CoinDCX API Configuration
 COINDCX_API_KEY = os.getenv("COINDCX_API_KEY", "")
 COINDCX_API_SECRET = os.getenv("COINDCX_API_SECRET", "")
@@ -69,10 +77,18 @@ MSTOCK_API_SECRET = os.getenv("MSTOCK_API_SECRET", "")
 # Monitor Configuration
 MONITOR_INTERVAL_HOURS = int(os.getenv("MONITOR_INTERVAL_HOURS", "2"))
 
+# Personal Trader Configuration
+TRADER_INTERVAL_MINUTES = int(os.getenv("TRADER_INTERVAL_MINUTES", "10"))
+
+# Personal Trader Configuration
+TRADER_INTERVAL_MINUTES = int(os.getenv("TRADER_INTERVAL_MINUTES", "10"))
+
 # Environment
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
-# CoinDCX Fee Tier (Public, non-VIP)
+# Exchange Fees (based on tier; adjust as needed)
+BINANCE_MAKER_FEE = 0.001  # 0.1%
+BINANCE_TAKER_FEE = 0.001  # 0.1%
 COINDCX_MAKER_FEE = 0.001  # 0.1%
 COINDCX_TAKER_FEE = 0.002  # 0.2%
 

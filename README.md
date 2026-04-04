@@ -2,18 +2,18 @@
 
 **Transforming IndiaCryptoAlpha into a cutting-edge AI Race Trading System.**
 
-This repository now hosts **IndiaAI Race Alpha**, a sophisticated platform where autonomous, LLM-powered AI trading agents compete head-to-head in real-time "lane races" to maximize their virtual capital. Inspired by the concept demonstrated in the YouTube video "I forced the top AI trading bots to compete to make money", this system is designed for Indian markets, supporting both crypto (CoinDCX) and stocks (m.Stock Trading API).
+This repository now hosts **IndiaAI Race Alpha**, a sophisticated platform where autonomous, LLM-powered AI trading agents compete head-to-head in real-time "lane races" to maximize their virtual capital. Inspired by the concept demonstrated in the YouTube video "I forced the top AI trading bots to compete to make money", this system is designed for Indian markets, supporting multiple crypto exchanges (Binance, CoinDCX) and stocks (m.Stock Trading API).
 
 ## 🎯 Core Vision (Matching the Video Exactly)
 
--   **12–36 Autonomous AI Trading Agents**: Agents compete in a real-time "lane race."
--   **Equal Virtual Capital**: Each agent starts with ₹1,00,000 INR (configurable).
--   **Configurable Race Duration**: Default 24–48 hours, or continuous live mode.
--   **Independent Research & Trading**: Agents research markets, backtest, develop/evolve strategies, and execute trades.
--   **Real-time Dashboard**: Beautiful "race" visualization with lane bars, equity curve lines, live P&L, leaderboard, total trades, win rate, etc.
--   **High Profitability**: 75%+ agents should finish profitable in most races.
--   **Winner Gets Bragging Rights**: Option to trade a real portfolio for the next period.
--   **Dual Market Support**: Fully supports crypto (CoinDCX) and stocks (m.Stock Trading API).
+- **12–36 Autonomous AI Trading Agents**: Agents compete in a real-time "lane race."
+- **Equal Virtual Capital**: Each agent starts with ₹1,00,000 INR (configurable).
+- **Configurable Race Duration**: Default 24–48 hours, or continuous live mode.
+- **Independent Research & Trading**: Agents research markets, backtest, develop/evolve strategies, and execute trades.
+- **Real-time Dashboard**: Beautiful "race" visualization with lane bars, equity curve lines, live P&L, leaderboard, total trades, win rate, etc.
+- **High Profitability**: 75%+ agents should finish profitable in most races.
+- **Winner Gets Bragging Rights**: Option to trade a real portfolio for the next period.
+- **Multi-Exchange Support**: Fully supports crypto on Binance and CoinDCX, plus stocks (m.Stock Trading API).
 
 ## ✨ Key Features
 
@@ -21,46 +21,46 @@ This repository now hosts **IndiaAI Race Alpha**, a sophisticated platform where
 
 Each agent is now an LLM-driven autonomous entity (configurable via `.env` for Grok/xAI, OpenAI, or Claude) comprising:
 
--   **Researcher Sub-agent**: Pulls live + historical data, analyzes market regimes, and backtests ideas.
--   **Strategist Sub-agent**: Uses LLM to invent, evolve, or combine strategies (technical indicators, mean-reversion, breakout, pivot points, machine-learning signals, or creative ideas).
--   **Executor Sub-agent**: Places paper (or live) trades via CoinDCX (CCXT) and m.Stock Trading API (using the official Python SDK `mStock-TradingApi-A`).
+- **Researcher Sub-agent**: Pulls live + historical data, analyzes market regimes, and backtests ideas.
+- **Strategist Sub-agent**: Uses LLM to invent, evolve, or combine strategies (technical indicators, mean-reversion, breakout, pivot points, machine-learning signals, or creative ideas).
+- **Executor Sub-agent**: Places paper (or live) trades via CoinDCX (CCXT) and m.Stock Trading API (using the official Python SDK `mStock-TradingApi-A`).
 
 Agents can trade crypto only, stocks only, or both (configurable per race or per agent). They are designed to "evolve," with the LLM reviewing performance and tweaking parameters, switching strategies, or generating new Python strategy code snippets dynamically.
 
 ### New Race Orchestrator (`race/orchestrator.py`)
 
--   Spawns `N` AI agents (configurable in `.env`).
--   Each agent runs in its own isolated "lane" with its own virtual portfolio.
--   Manages race timer, start/stop, pause, and reset functionalities.
--   Takes periodic snapshots of all agents’ equity for the race dashboard.
+- Spawns `N` AI agents (configurable in `.env`).
+- Each agent runs in its own isolated "lane" with its own virtual portfolio.
+- Manages race timer, start/stop, pause, and reset functionalities.
+- Takes periodic snapshots of all agents’ equity for the race dashboard.
 
 ### Enhanced Streamlit Dashboard (`dashboard/race_app.py`)
 
 Designed to look and feel exactly like the video’s "lane race" dashboard:
 
--   **Top Bar**: Race timer, total agents, total trades made.
--   **Main View**: Horizontal or vertical "lanes" with agent name + colored progress bar showing current profit %.
--   **Live Equity Curve Chart**: Multi-line chart for all agents.
--   **Leaderboard Table**: Rank, agent name, P&L, win rate, trades, strategy summary.
--   **Agent Detail Panels**: Click an agent to see its current strategy, last trades, and research notes.
--   **Real-time Updates**: Every 5–10 seconds.
--   **Visuals**: Dark mode, beautiful charts (Plotly or Streamlit native).
--   **Export**: Race results to Excel/PDF.
+- **Top Bar**: Race timer, total agents, total trades made.
+- **Main View**: Horizontal or vertical "lanes" with agent name + colored progress bar showing current profit %.
+- **Live Equity Curve Chart**: Multi-line chart for all agents.
+- **Leaderboard Table**: Rank, agent name, P&L, win rate, trades, strategy summary.
+- **Agent Detail Panels**: Click an agent to see its current strategy, last trades, and research notes.
+- **Real-time Updates**: Every 5–10 seconds.
+- **Visuals**: Dark mode, beautiful charts (Plotly or Streamlit native).
+- **Export**: Race results to Excel/PDF.
 
 ### Market Data & Execution
 
--   **CoinDCX**: Existing CCXT integration maintained.
--   **m.Stock**: Full integration using the official Python SDK, supporting order placement, portfolio, and real-time market data via REST + WebSocket.
--   **Paper-trading Mode First**: Default for safety; an `.env` flag enables live trading on either/both brokers.
--   **Risk Engine**: Applied per agent (position sizing, daily loss limit, stop-loss, etc.).
+- **CoinDCX**: Existing CCXT integration maintained.
+- **m.Stock**: Full integration using the official Python SDK, supporting order placement, portfolio, and real-time market data via REST + WebSocket.
+- **Paper-trading Mode First**: Default for safety; an `.env` flag enables live trading on either/both brokers.
+- **Risk Engine**: Applied per agent (position sizing, daily loss limit, stop-loss, etc.).
 
 ### Additional Features
 
--   **Telegram Alerts**: Race start, leader changes, big wins/losses, final results.
--   **Full Logging**: Per agent + master race log.
--   **Configurable**: Via `.env` (number of agents, race duration, starting capital, LLM provider + API key, brokers to enable, markets, etc.).
--   **Safety**: All trades are paper by default; clear warnings before enabling live trading.
--   **Evolutionary Pressure**: After every race, top 3 agents can "breed" strategies into the next race (optional advanced mode).
+- **Telegram Alerts**: Race start, leader changes, big wins/losses, final results.
+- **Full Logging**: Per agent + master race log.
+- **Configurable**: Via `.env` (number of agents, race duration, starting capital, LLM provider + API key, brokers to enable, markets, etc.).
+- **Safety**: All trades are paper by default; clear warnings before enabling live trading.
+- **Evolutionary Pressure**: After every race, top 3 agents can "breed" strategies into the next race (optional advanced mode).
 
 ## 📋 Requirements
 
@@ -71,20 +71,20 @@ Designed to look and feel exactly like the video’s "lane race" dashboard:
 
 ### Laptop (WSL Kali/Ubuntu)
 
--   Python 3.11+
--   4GB RAM minimum (8GB+ recommended for multiple LLM agents)
--   Internet connection
--   CoinDCX API keys (optional, for live crypto trading)
--   m.Stock API credentials (optional, for live stock trading)
--   Telegram bot token (optional, for alerts)
--   LLM API key (OpenAI, Anthropic, Google, or xAI)
+- Python 3.11+
+- 4GB RAM minimum (8GB+ recommended for multiple LLM agents)
+- Internet connection
+- CoinDCX API keys (optional, for live crypto trading)
+- m.Stock API credentials (optional, for live stock trading)
+- Telegram bot token (optional, for alerts)
+- LLM API key (OpenAI, Anthropic, Google, or xAI)
 
 ### Termux (Android)
 
--   Termux app installed
--   Python 3.11+
--   1GB free storage
--   Same API credentials as above
+- Termux app installed
+- Python 3.11+
+- 1GB free storage
+- Same API credentials as above
 
 ## 🚀 Installation
 
@@ -126,16 +126,23 @@ ANTHROPIC_API_KEY=
 GOOGLE_API_KEY=
 XAI_API_KEY=
 
+# Exchange Configuration
+EXCHANGE_NAME=coindcx    # Options: binance, coindcx
+
+# Binance API Configuration (for crypto trading)
+BINANCE_API_KEY=your_binance_api_key
+BINANCE_SECRET_KEY=your_binance_secret_key
+
+# CoinDCX API Configuration (for crypto trading)
+COINDCX_API_KEY=your_coindcx_api_key
+COINDCX_API_SECRET=your_coindcx_api_secret
+
 # m.Stock Configuration (if enabling live stock trading)
 MSTOCK_USER_ID=
 MSTOCK_PASSWORD=
 MSTOCK_PIN=
 MSTOCK_API_KEY=
 MSTOCK_API_SECRET=
-
-# CoinDCX API Configuration (for crypto trading)
-COINDCX_API_KEY=your_coindcx_api_key
-COINDCX_API_SECRET=your_coindcx_api_secret
 
 # Telegram
 TELEGRAM_BOT_TOKEN=your_bot_token
@@ -156,6 +163,15 @@ STOP_LOSS_PERCENT=0.03
 DAILY_MAX_LOSS_PERCENT=0.05
 ```
 
+## Multi-Exchange Support
+
+The system is designed to work with multiple cryptocurrency exchanges via a common abstraction layer.
+
+- **Exchange Selection**: Set `EXCHANGE_NAME` in your `.env` to `binance` or `coindcx`.
+- **Binance**: Requires `BINANCE_API_KEY` and `BINANCE_SECRET_KEY`. Pairs are auto-converted: `BTC-INR` → `BTCUSDT`.
+- **CoinDCX**: Requires `COINDCX_API_KEY` and `COINDCX_API_SECRET`. Uses `BTC-INR` style pairs.
+- Both exchanges work in paper trading mode by default; set `PAPER_TRADING_MODE=false` to enable live trading (use with caution).
+
 ## 🎮 Usage
 
 ### Start the AI Race System
@@ -168,6 +184,7 @@ python main.py
 ```
 
 When `main.py` runs, it automatically:
+
 1. Starts the **Flask API Control Server** (port 5000, background thread)
 2. Spawns and manages all AI trading agents
 3. Streams logs to `logs/trading_system.log`
@@ -186,15 +203,15 @@ Open **http://localhost:8501** in your browser.
 
 #### Dashboard Features
 
-| Section | What You Can Do |
-|---------|----------------|
-| **📊 Overview** | Portfolio P&L, win rate, Sharpe/Sortino ratios, trade distribution, cumulative P&L chart |
-| **⚡ Agent Control** | Start/stop the race, view agent cards, restart individual agents, stop underperformers |
-| **📈 Live Trades** | Monitor open positions, closed trades, unrealized P&L |
-| **🔑 API Keys** | Enter and manage CoinDCX, m.Stock, OpenAI, Anthropic, Google, Telegram keys directly from UI |
-| **⚠️ Risk Dashboard** | Real-time risk alerts (drawdown, win rate, profit factor), risk/reward ratio |
-| **📋 System Logs** | Live log viewer with search, log level filter, auto-refresh every 5s |
-| **⚙️ Configuration** | Edit all `.env` parameters (portfolio, risk, agent count, intervals) via the UI |
+| Section               | What You Can Do                                                                              |
+| --------------------- | -------------------------------------------------------------------------------------------- |
+| **📊 Overview**       | Portfolio P&L, win rate, Sharpe/Sortino ratios, trade distribution, cumulative P&L chart     |
+| **⚡ Agent Control**  | Start/stop the race, view agent cards, restart individual agents, stop underperformers       |
+| **📈 Live Trades**    | Monitor open positions, closed trades, unrealized P&L                                        |
+| **🔑 API Keys**       | Enter and manage Binance, CoinDCX, m.Stock, OpenAI, Anthropic, Google, Telegram keys from UI |
+| **⚠️ Risk Dashboard** | Real-time risk alerts (drawdown, win rate, profit factor), risk/reward ratio                 |
+| **📋 System Logs**    | Live log viewer with search, log level filter, auto-refresh every 5s                         |
+| **⚙️ Configuration**  | Edit all `.env` parameters (portfolio, risk, exchange, agent count, intervals) via the UI    |
 
 ### 📸 Screenshots
 
@@ -229,107 +246,110 @@ A Flask-based REST API (`api_server.py`) runs automatically as a background thre
 
 To enable the API server (currently allows local control), set `ALLOW_API_CONTROL=true` in your `.env` file. The dashboard uses this API for all controls.
 IndiaCryptoAlpha/
-├── config/                 # Configuration module
-│   └── __init__.py        # Environment variables
-├── core/                   # Core trading system
-│   ├── market_data.py     # CoinDCX API integration
-│   ├── risk_engine.py     # Risk management
-│   ├── order_execution.py # Order simulation & m.Stock integration
-│   ├── mstock_client.py   # m.Stock API client
-│   └── __init__.py
-├── agents/                 # Strategy agents
-│   ├── base_agent.py      # Base class
-│   ├── llm_agent.py       # LLM-powered autonomous agent
-│   ├── rsi_macd_agent.py  # (Legacy) RSI+MACD strategy
-│   ├── bollinger_volume_agent.py  # (Legacy) Bollinger Band strategy
-│   ├── ema_supertrend_agent.py    # (Legacy) EMA Crossover strategy
-│   └── __init__.py
-├── logger/                 # Logging and accounting
-│   ├── database.py        # SQLite logging
-│   ├── excel_logger.py    # Excel export
-│   ├── accountant_agent.py # Financial calculations
-│   └── __init__.py
-├── monitor/                # Monitoring and alerts
-│   ├── telegram_monitor.py # Telegram integration
-│   ├── monitor_agent.py   # System monitoring
-│   └── __init__.py
-├── race/                   # Race Orchestration
-│   ├── orchestrator.py    # Main race logic
-│   └── __init__.py
-├── researcher/             # Research and backtesting
-│   ├── backtest_engine.py # Backtesting
-│   ├── researcher_agent.py # Market analysis
-│   └── __init__.py
-├── dashboard/              # Streamlit dashboards
-│   ├── app.py            # (Legacy) Overview dashboard
-│   ├── race_app.py       # New Race Visualization Dashboard
-│   └── __init__.py
-├── data/                   # Data storage
-├── logs/                   # Log files
-├── main.py                 # Main system entry point (now runs race)
-├── generate_demo_race.py   # Script to run a short demo race
-├── requirements.txt        # Python dependencies
-├── setup.sh               # Setup script
-├── .env                   # Configuration (create this)
-├── README.md              # This file
-└── QUICKSTART_RACE.md     # Quickstart guide for race mode
+├── config/ # Configuration module
+│ └── **init**.py # Environment variables
+├── core/ # Core trading system
+│ ├── market_data.py # CoinDCX API integration
+│ ├── risk_engine.py # Risk management
+│ ├── order_execution.py # Order simulation & m.Stock integration
+│ ├── mstock_client.py # m.Stock API client
+│ └── **init**.py
+├── agents/ # Strategy agents
+│ ├── base_agent.py # Base class
+│ ├── llm_agent.py # LLM-powered autonomous agent
+│ ├── rsi_macd_agent.py # (Legacy) RSI+MACD strategy
+│ ├── bollinger_volume_agent.py # (Legacy) Bollinger Band strategy
+│ ├── ema_supertrend_agent.py # (Legacy) EMA Crossover strategy
+│ └── **init**.py
+├── logger/ # Logging and accounting
+│ ├── database.py # SQLite logging
+│ ├── excel_logger.py # Excel export
+│ ├── accountant_agent.py # Financial calculations
+│ └── **init**.py
+├── monitor/ # Monitoring and alerts
+│ ├── telegram_monitor.py # Telegram integration
+│ ├── monitor_agent.py # System monitoring
+│ └── **init**.py
+├── race/ # Race Orchestration
+│ ├── orchestrator.py # Main race logic
+│ └── **init**.py
+├── researcher/ # Research and backtesting
+│ ├── backtest_engine.py # Backtesting
+│ ├── researcher_agent.py # Market analysis
+│ └── **init**.py
+├── dashboard/ # Streamlit dashboards
+│ ├── app.py # (Legacy) Overview dashboard
+│ ├── race_app.py # New Race Visualization Dashboard
+│ └── **init**.py
+├── data/ # Data storage
+├── logs/ # Log files
+├── main.py # Main system entry point (now runs race)
+├── generate_demo_race.py # Script to run a short demo race
+├── requirements.txt # Python dependencies
+├── setup.sh # Setup script
+├── .env # Configuration (create this)
+├── README.md # This file
+└── QUICKSTART_RACE.md # Quickstart guide for race mode
+
 ```
 
 ## 🔄 System Architecture
 
 ```
+
 +-----------------------+
-|  Race Orchestrator    |
+| Race Orchestrator |
 | (race/orchestrator.py)|
 +-----------+-----------+
-            |
-            v
+|
+v
 +-----------------------+
-|  LLM Trading Agents   |
+| LLM Trading Agents |
 | (agents/llm_agent.py) |
 +-----------+-----------+
-    ^   ^   |
-    |   |   v
-    |   |  +-----------------------+
-    |   +--|  Researcher Sub-agent |
-    |      +-----------------------+
-    |                  |
-    |                  v
-    |      +-----------------------+
-    +------|  Strategist Sub-agent |
-           +-----------------------+
-                           |
-                           v
-               +-----------------------+
-               |  Executor Sub-agent   |
-               | (CoinDCX, m.Stock)    |
-               +-----------+-----------+
-                           |
-                           v
-               +-----------------------+
-               |  Risk Engine          |
-               |  Order Executor       |
-               |  Market Data Manager  |
-               +-----------+-----------+
-                           |
-                           v
-               +-----------------------+
-               |  Accountant Agent     |
-               |  Monitor Agent        |
-               +-----------+-----------+
-                           |
-                           v
-               +-----------------------+
-               |  SQLite, Excel,       |
-               |  Telegram Alerts      |
-               +-----------------------+
+^ ^ |
+| | v
+| | +-----------------------+
+| +--| Researcher Sub-agent |
+| +-----------------------+
+| |
+| v
+| +-----------------------+
++------| Strategist Sub-agent |
++-----------------------+
+|
+v
++-----------------------+
+| Executor Sub-agent |
+| (CoinDCX, m.Stock) |
++-----------+-----------+
+|
+v
++-----------------------+
+| Risk Engine |
+| Order Executor |
+| Market Data Manager |
++-----------+-----------+
+|
+v
++-----------------------+
+| Accountant Agent |
+| Monitor Agent |
++-----------+-----------+
+|
+v
++-----------------------+
+| SQLite, Excel, |
+| Telegram Alerts |
++-----------------------+
 
 +-----------------------------------+
-|  Streamlit Race Dashboard         |
-| (dashboard/race_app.py)           |
-|  (Real-time visualization)        |
+| Streamlit Race Dashboard |
+| (dashboard/race_app.py) |
+| (Real-time visualization) |
 +-----------------------------------+
-```
+
+````
 
 ## 🔧 Troubleshooting
 
@@ -351,6 +371,33 @@ IndiaCryptoAlpha/
 
 This project is provided as-is for educational and personal use.
 
+## 🆕 IndiaCryptoAlpha v2.0 Features
+
+### Personal Trader Mode
+IndiaCryptoAlpha v2.0 introduces an AI-native personal trading agent that operates autonomously:
+
+- **Regime Detection**: Rule-based market regime identification (trending up/down, high volatility, mean-reverting, choppy) with optional HMM enhancement
+- **Waterfall Profit Protection**: Tiered profit protection at 5%, 10%, 15%, and 20% levels with automatic stop-loss adjustments
+- **Autonomous Trading Loop**: Continuous cycle of market research → regime detection → strategy evolution → signal generation → risk validation → paper trade execution → logging
+- **Smart Scheduling**: APScheduler-based timed jobs for regime analysis (15min), strategy evolution (hourly), daily risk reports (08:00 IST), and portfolio snapshots (30min)
+- **Victory Mode & Risk Controls**: Special handling for profitable streaks with 8% max drawdown protection
+
+### Dashboard Integration
+A new "Personal Trader Mode" page has been added to the Streamlit dashboard showing:
+- Current profit progress and waterfall status
+- Detected market regime and confidence
+- Research notes and strategy evolution history
+- Recent trades and performance metrics
+
+### Configuration
+Add these to your `.env` file to customize the personal trader:
+```env
+# Personal Trader Settings
+TRADER_INTERVAL_MINUTES=30
+ENABLE_HMM_REGIME_DETECTION=false
+WATERFALL_PROFIT_THRESHOLDS=5,10,15,20
+````
+
 ## 🤝 Support
 
 For issues or questions, please refer to the troubleshooting section or open an issue on GitHub.
@@ -366,6 +413,7 @@ For issues or questions, please refer to the troubleshooting section or open an 
 ## 🐛 Python 3.13 Compatibility
 
 If you're using **Python 3.13**, `setup.sh` automatically installs compatible versions:
+
 - `numpy>=2.1.0`
 - `pandas>=2.2.3`
 

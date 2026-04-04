@@ -15,6 +15,7 @@ from config import (
     SUPPORTED_PAIRS,
 )
 from core import MarketDataManager, RiskEngine, OrderExecutor
+from core.exchange_base import ExchangeFactory
 from agents.llm_agent import LLMTradingAgent
 from logger import AccountantAgent
 from monitor import MonitorAgent
@@ -34,6 +35,36 @@ class RaceOrchestrator:
 
         self.num_agents = num_agents
         self.market_data = MarketDataManager()
+
+        # Create exchange instance if credentials available (for live trading)
+        self.exchange = None
+        try:
+            from config import (
+                EXCHANGE_NAME,
+                BINANCE_API_KEY,
+                BINANCE_SECRET_KEY,
+                COINDCX_API_KEY,
+                COINDCX_API_SECRET,
+            )
+
+            exchange_name = EXCHANGE_NAME.lower()
+            if exchange_name == "binance" and BINANCE_API_KEY and BINANCE_SECRET_KEY:
+                self.exchange = ExchangeFactory.create_exchange(
+                    "binance", BINANCE_API_KEY, BINANCE_SECRET_KEY
+                )
+                logger.info(f"✅ Live Binance exchange initialized")
+            elif exchange_name == "coindcx" and COINDCX_API_KEY and COINDCX_API_SECRET:
+                self.exchange = ExchangeFactory.create_exchange(
+                    "coindcx", COINDCX_API_KEY, COINDCX_API_SECRET
+                )
+                logger.info(f"✅ Live CoinDCX exchange initialized")
+            else:
+                logger.info(
+                    "ℹ️ No exchange credentials configured — agents will run in paper trading mode only"
+                )
+        except Exception as e:
+            logger.warning(f"Failed to initialize exchange: {e} — paper mode only")
+
         self.accountant = AccountantAgent()
         self.monitor = MonitorAgent()
 
@@ -55,7 +86,7 @@ class RaceOrchestrator:
             agent_name = f"Agent-{i + 1:02d}"
             # Each agent gets its own risk engine for isolated virtual capital
             risk_engine = RiskEngine(INITIAL_PORTFOLIO)
-            order_executor = OrderExecutor()
+            order_executor = OrderExecutor(exchange=self.exchange)
 
             agent = LLMTradingAgent(
                 name=agent_name,
@@ -65,8 +96,8 @@ class RaceOrchestrator:
                 market_data=self.market_data,
             )
             self.agents.append(agent)
-        self._agent_states[agent_name] = True  # All agents start active
-        logger.info(f"✓ {agent_name} joined the race")
+            self._agent_states[agent_name] = True  # All agents start active
+            logger.info(f"✓ {agent_name} joined the race")
 
     # -------------------------------------------------------------------------
     # AGENT CONTROL
@@ -133,7 +164,7 @@ class RaceOrchestrator:
             name=self.agents[agent_idx].name,
             pairs=SUPPORTED_PAIRS,
             risk_engine=RiskEngine(INITIAL_PORTFOLIO),
-            order_executor=OrderExecutor(),
+            order_executor=OrderExecutor(exchange=self.exchange),
             market_data=self.market_data,
         )
         self.agents[agent_idx] = new_agent
